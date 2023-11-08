@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  minimalist-web-notepad-js:
+    container_name: minimalist-web-notepad-js
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 127.0.0.1:8089:8080
+    volumes:
+      - ./note:/app/_tmp
