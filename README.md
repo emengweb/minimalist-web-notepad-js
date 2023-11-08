@@ -2,7 +2,7 @@
 
 
 
-This is an open-source clone of the minimalist-web-notepad, it rewrite by ChatGPT and base on Node.JS.
+This is an open-source clone of the minimalist-web-notepad, it rewrite with ChatGPT and base on Node.JS.
 
 See php demo of minimalist-web-notepad at https://notes.orga.cat or https://notes.orga.cat/whatever.
 
