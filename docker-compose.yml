@@ -10,3 +10,4 @@ services:
       - 127.0.0.1:8089:8080
     volumes:
       - ./note:/app/_tmp
+    restart: always
