@@ -5,7 +5,7 @@ const he = require('he'); // Add this module to encode and decode HTML entities
 const bodyParser = require('body-parser'); // Add this module to parse and limit request body
 
 // Base URL of the website, without trailing slash.
-const base_url = '/';
+const base_url = process.env.BASE_URL || '';
 
 // Path to the directory to save the notes in, without trailing slash.
 // Should be outside the document root, if possible.
