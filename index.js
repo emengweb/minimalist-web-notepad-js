@@ -52,10 +52,18 @@ app.get('/:note', (req, res) => {
     // Normalize and encode the note name to prevent path traversal attacks.
     noteName = encodeURIComponent(path.basename(path.normalize(noteName)));
 
-    let filePath = save_path + '/' + noteName;
-
+    // let filePath = save_path + '/' + noteName;
+    let filePath = path.join(save_path, noteName); // Use path.join for safe path construction
+    
+    // Validate filePath to prevent path traversal attacks
+    if (!filePath.startsWith(save_path)) {
+        // res.status(400).send('Invalid note name');
+        res.status(404).end();
+        return;
+    }
+    
     // Print raw file when explicitly requested, or if the client is curl or wget.
-    if (req.query.raw || req.headers['user-agent'].startsWith('curl') || req.headers['user-agent'].startsWith('Wget')) {
+    if ((req.query.raw && req.query.raw === 'true' ) || req.headers['user-agent'].startsWith('curl') || req.headers['user-agent'].startsWith('Wget')) {
         // Check if the file exists.
         fs.access(filePath, fs.constants.F_OK, err => {
             if (err) {
@@ -122,8 +130,16 @@ app.post('/:note', (req, res) => {
     // Normalize and encode the note name to prevent path traversal attacks.
     noteName = encodeURIComponent(path.basename(path.normalize(noteName)));
 
-    let filePath = save_path + '/' + noteName;
+    // let filePath = save_path + '/' + noteName;
+    let filePath = path.join(save_path, noteName); // Use path.join for safe path construction
 
+    // Validate filePath to prevent path traversal attacks
+    if (!filePath.startsWith(save_path)) {
+        res.status(400).send('Invalid note name');
+        return;
+    }
+    
+    
     let text = req.body; // Get the data from the request body.
     // Get the data from the request $_POST['text'] body text.
     
